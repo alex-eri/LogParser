@@ -47,6 +47,7 @@ class Parser(object):
             m = donetime_re.search(line)
             if m:
                 return float(m.group(2))
+        self.cursor += buffer.cursor
 
 
 
@@ -72,7 +73,11 @@ class Parser(object):
             self.get('/log')
 
     def run(self):
-        self.connect()
         while True:
-            self.head()
+            try:
+                self.connect()
+                while True:
+                    self.head()
+            except httplib.HTTPException:
+                pass
 
