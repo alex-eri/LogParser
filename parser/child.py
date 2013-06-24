@@ -1,3 +1,5 @@
+import time
+
 __author__ = 'eri'
 import re
 import urllib2
@@ -78,6 +80,8 @@ class Parser(object):
                 self.connect()
                 while True:
                     self.head()
+                    time.sleep(5)
+
             except httplib.HTTPException:
                 pass
 
