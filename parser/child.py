@@ -78,10 +78,13 @@ class Parser(object):
 
     def run(self):
         while True:
+            try:
                 self.connect()
                 while True:
                     self.head()
                     time.sleep(5)
-
+            except httplib.HTTPException, e:
+                print e
+                time.sleep(10)
 
 
