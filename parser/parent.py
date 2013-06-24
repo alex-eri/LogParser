@@ -35,7 +35,7 @@ def main():
     while True:
         host,done_time = done_queue.get()
         results[host].append(done_time)
-        if time.time() - t > 5 :
+        if time.time() - t > 1 :
             t = time.time()
             flush(t,results)
 

@@ -82,7 +82,7 @@ class Parser(object):
                 self.connect()
                 while True:
                     self.head()
-                    time.sleep(5)
+                    time.sleep(2)
             except httplib.HTTPException, e:
                 print e
                 time.sleep(10)
