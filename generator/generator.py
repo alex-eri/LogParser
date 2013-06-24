@@ -51,7 +51,7 @@ class Loger(threading.Thread):
 def httpserver(server_class=BaseHTTPServer.HTTPServer,
         handler_class=SimpleHTTPServer.SimpleHTTPRequestHandler):
 
-    server_address = ('', 8000)
+    server_address = ('0.0.0.0', 8000)
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
 
