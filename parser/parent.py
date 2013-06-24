@@ -38,6 +38,9 @@ def main():
         if time.time() - t > 1 :
             t = time.time()
             flush(t,results)
+            for host in results.keys():
+                results[host] = []
+
 
 if __name__ == "__main__":
     main()
