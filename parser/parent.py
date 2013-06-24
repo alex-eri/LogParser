@@ -13,12 +13,12 @@ def parser(host,done_queue):
 
 
 def flush(t,results):
-    t = time.strftime("%a, %d %b %Y %H:%M:%S",t)
+    t = time.strftime("%a, %d %b %Y %H:%M:%S",time.gmtime(t) )
     with open('done.log','a') as log:
         lines = []
         for host in results.keys():
             avg = sum(results[host])/float(len(results[host]))
-            lines.append("[%s] [%s]: average=%f " % (t,host,avg))
+            lines.append("[%s] [%s]: average=%f \n" % (t,host,avg))
         log.writelines(lines)
 
 
@@ -35,7 +35,7 @@ def main():
     while True:
         host,done_time = done_queue.get()
         results[host].append(done_time)
-        if time.time() - t > 1 :
+        if time.time() - t > 5 :
             t = time.time()
             flush(t,results)
 

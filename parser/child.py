@@ -68,6 +68,7 @@ class Parser(object):
         self.conn.request('HEAD','/log')
         res =  self.conn.getresponse()
         size = res.getheader('content-length')
+        print size
         if size > self.size:
             self.get('/log')
         elif size < self.size:
