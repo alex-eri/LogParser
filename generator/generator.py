@@ -42,7 +42,7 @@ class Loger(threading.Thread):
                     # build_id = uuid.uuid1()
                     build_id = id_generator()
                     f.write(log_patern % (build_id, dt))
-                    time.sleep(dt)
+                    time.sleep(dt/2)
                     if os.path.getsize(self.fname) > 100*1024*1024:
                         break
             self.rotate()
