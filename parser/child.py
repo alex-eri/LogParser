@@ -10,18 +10,19 @@ donetime_re = re.compile('(DoneTime=)(\d+.\d+) DONE')
 class Buffer():
     def __init__(self,f):
         self.f = f
-        self.buf = ''
+        self.buffer = ''
         self.cursor = 0
 
     def readlines(self):
         buf = True
         while buf:
+            print buf
             buf = self.f.read(2048)
             self.cursor += len(buf)
             self.buffer += buf
             while True:
-                split = self.buf.split('\n',1)
-                self.buf = split[-1]
+                split = self.buffer.split('\n',1)
+                self.buffer = split[-1]
 
                 if len(split) > 1:
                     yield split[0]
@@ -41,7 +42,7 @@ class Parser(object):
         self.host = host
 
     def connect(self):
-        self.conn =  httplib.HTTPConnection(self.host)
+        self.conn =  httplib.HTTPConnection(self.host,port=8000)
 
     def parse(self, response):
         buffer = Buffer(response)
@@ -54,7 +55,7 @@ class Parser(object):
 
 
     def get(self,uri):
-        self.conn.request('GET', uri)
+        self.conn.putrequest('GET', uri)
         self.conn.putheader('Range','bytes=%d-' % self.cursor)
         self.conn.endheaders()
         res = self.conn.getresponse()
@@ -76,12 +77,10 @@ class Parser(object):
 
     def run(self):
         while True:
-            try:
                 self.connect()
                 while True:
                     self.head()
                     time.sleep(5)
 
-            except httplib.HTTPException:
-                pass
+
 

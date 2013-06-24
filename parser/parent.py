@@ -35,6 +35,9 @@ def main():
     while True:
         host,done_time = done_queue.get()
         results[host].append(done_time)
-        if time.time() - t > 60*60 :
+        if time.time() - t > 1 :
             t = time.time()
             flush(t,results)
+
+if __name__ == "__main__":
+    main()
