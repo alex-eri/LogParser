@@ -45,7 +45,7 @@ class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if f:
             if self.headers.has_key('Range'):
                 start,end = self.headers.get('Range','0-').split('-')
-                f.seek(start)
+                f.seek(int(start))
             self.copyfile(f, self.wfile)
             f.close()
 
